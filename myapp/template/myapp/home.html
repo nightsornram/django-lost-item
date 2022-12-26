@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>แจ้งของหาย</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/clock.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d57b7f327b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  </head>
+  <body>
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar">
+    <header>แจ้งของหาย</header>
+    <ul>
+      <li><a href="{% url 'home-page' %}"><i class="fas fa-home"></i>Home</a></li>
+      <li><a href="{% url 'send-page' %}"><i class="fas fa-envelope"></i>แจ้งข้อมูล</a></li>
+      <li><a href="{% url 'show-page' %}"><i class="fas fa-history"></i>ประวัติ</a></li>
+    </ul>
+  </div>
+ 
+
+  <div class="digital-clock">
+    <div class="time">
+      <span class="hours">00</span>
+      <span class="dots">:</span>
+      <span class="minutes">00</span>
+      <div class="right-side">
+        <span class="seconds">00</span>
+
+      </div>
+    </div>
+    <div class="calendar">
+      <span class="month-name">MAR</span>,
+      <span class="day-name">SUNDAY</span>
+      <span class="day-number">14</span>
+      <span class="year">2022</span>
+    </div>
+  </div>
+  <script>
+
+    function clock() {
+      var today = new Date();
+      var hours = today.getHours();
+      var minutes = today.getMinutes();
+      var seconds = today.getSeconds();
+
+      document.querySelector(".hours").innerHTML = hours;
+      document.querySelector(".minutes").innerHTML = minutes;
+      document.querySelector(".seconds").innerHTML = seconds;
+    }
+
+    var updaateClock = setInterval(clock, 1000);
+
+    var today = new Date();
+    const dayNumber = today.getDate();
+    const year = today.getFullYear();
+    const dayName = today.toLocaleString("default", {weekday: "long"});
+    const monthName = today.toLocaleString("default", {month: "long"});
+
+    document.querySelector(".month-name").innerHTML = monthName;
+    document.querySelector(".day-name").innerHTML = dayName;
+    document.querySelector(".day-number").innerHTML = dayNumber;
+    document.querySelector(".year").innerHTML = year;
+  </script>
+
+  </body>
+</html>

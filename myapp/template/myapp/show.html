@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>แจ้งของหาย</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/card.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d57b7f327b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    </head>
+    <style>
+      .button {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 50px 2px 0px 0px;
+        cursor: pointer;
+      }
+      
+      .button1 {background-color: #4CAF50;}
+
+      select {
+        width: 100%;
+        padding: 16px 20px;
+        border: none;
+        border-radius: 4px;
+        background-color: #f1f1f1;
+      } 
+      button {
+        background-color: #04AA6D;
+        border: none;
+        color: white;
+        padding: 16px 300px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+        font-size: 24px;
+      }
+      @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Varela+Round&display=swap');
+
+    body {
+        font-family: "Tajawal", Arial;
+}
+    span{
+      color: #f1f1f1;
+      font-size: 16px;
+    }
+    a {
+      text-decoration: none;
+      display: inline-block;
+      padding: 8px 16px;
+    }
+    a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    .previous {
+      background-color: #f1f1f1;
+      color: black;
+    }
+    
+    .next {
+      background-color: #04AA6D;
+      color: white;
+    }
+    
+    .round {
+      border-radius: 50%;
+    }
+      </style>
+  <body>
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar">
+    <header>แจ้งของหาย</header>
+      <ul>
+        <li><a href="{% url 'home-page' %}"><i class="fas fa-home"></i>Home</a></li>
+        <li><a href="{% url 'send-page' %}"><i class="fas fa-envelope"></i>แจ้งข้อมูล</a></li>
+        <li><a href="{% url 'show-page' %}"><i class="fas fa-history"></i>ประวัติ</a></li>
+      </ul>
+    </div>
+    {% for pd in contacts %}
+    <div class="courses-container">
+      <div class="course">
+        <div class="course-preview">
+          <div style="width: 150px;">
+          <h2>{{pd.name}}</h2>
+          </div>
+        </div>
+        <div class="course-info">
+          <div class="progress-container">
+
+          </div>
+          <h4>เวลา : {{pd.date}}</h4>
+          <h2 style="color: #166e40;">สถานที่ : {{pd.place}}</h2>
+          {% if pd.status is True %}
+            <h4>สถานะ : ได้คืนแล้ว <i class="fa-solid fa-circle-check fa-2xl"></i></h4>
+          {% else %}
+            <h4>สถานะ : ยังไม่ได้คืน <i class="fa-solid fa-circle-xmark fa-2xl"></i></h4>
+          {% endif %}
+          <a href="{% url 'detail-page' pd.id %}" class="btn">รายละเอียด</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+
+  <div class="pagination">
+    <span class="step-links">
+        {% if contacts.has_previous %}
+            <a href="?page=1" class="previous">&laquo; first</a>
+            <a href="?page={{ contacts.previous_page_number }}" class="previous">previous</a>
+        {% endif %}
+    </span>
+
+        <span class="current">
+            Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.
+        </span>
+
+      <span class="step-links"></span>
+        {% if contacts.has_next %}
+            <a href="?page={{ contacts.next_page_number }}" class="previous">next</a>
+            <a href="?page={{ contacts.paginator.num_pages }}" class="previous">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+  </body>
+</html>
